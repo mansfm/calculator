@@ -3,44 +3,38 @@
 //Test
 int main()
 {
-	int a;
-       	a = 2;
-       
-       	int b;
-       	b = 2;
+	int a = 2;
+	int b = 2;
+	int c = 0;
 
 	// сложение:
-       	int c;
-       	c = a + b;
+	c = a + b;
 	std::cout << a << " + " << b << " = " << c << '\n';
 
 	// вычитание:
-       	int d;
-       	d = a - b;
-	std::cout << a << " - " << b << " = " << d << '\n';
+	c = a - b;
+	std::cout << a << " - " << b << " = " << c << '\n';
 
 	//умножение:
-       	int e;
-       	e = a * b;
-	std::cout << a << " * " << b << " = " << e << '\n';
+	c = a * b;
+	std::cout << a << " * " << b << " = " << c << '\n';
 
 	// деление:
-       	int f;
-       	if (b != 0)
-       	{
-		f = a / b;
-       	}
-       	else
-       	{
-       		std::cout << "Error\n";
-       	}
-       	std::cout << a << " / " << b << " = " << f << '\n';
+	if (b != 0)
+	{
+		c = a / b;
+		std::cout << a << " / " << b << " = " << c << '\n';
+	}
+	else
+	{
+		std::cout << "Error! Division by zero\n";
+	}
 
-       	// возведение в степень:
-	int g = 1;
+	// возведение в степень:
+	c = 1;
 	for (int i = 0; i < b; ++i)
 	{
-		g = g * a;
+		c = c * a;
 	}
-	std::cout << a << " ^ " << b << " = " << g << '\n';
+	std::cout << a << " ^ " << b << " = " << c << '\n';
 }
