@@ -1,30 +1,35 @@
 #include <iostream>
 
-//сложение:
+// функция сложения:
 int addition(int a, int b)
 {
     return a + b;
 }
 
-//вычитание:
+// функция вычитания:
 int subtraction(int a, int b)
 {
     return a - b;
 }
 
-//умножение:
+// функция умножения:
 int multiplication(int a, int b)
 {
     return a * b;
 }
 
-//деление:
-int division(int a, int b)
+// функция деления:
+int division(int a, int b, int& c)
 {
-    return a / b;
+    if (b == 0)
+    {
+        return -1;
+    }
+    c = a / b;
+    return 0;
 }
 
-//возведение в степень:
+// функция возведения в степень:
 int power(int a, int b)
 {
     int c = 1;
@@ -35,7 +40,7 @@ int power(int a, int b)
     return c;
 }
 
-//вывод в консоль:
+// вывод в консоль:
 void printResult(int a, int b, int c, char operation)
 {
     std::cout << a << ' ' << operation << ' ' << b << " = " << c << '\n';
@@ -47,6 +52,7 @@ int main()
     int a = 2;
     int b = 2;
     int c = 0;
+    int status = 0;
 
     // сложение:
     c = addition(a, b);
@@ -61,14 +67,18 @@ int main()
     printResult(a, b, c, '*');
 
     // деление:
-    if (b != 0)
+    status = division(a, b, c);
+    if (status == 0)
     {
-        c = division(a, b);
         printResult(a, b, c, '/');
+    }
+    else if (status == -1)
+    {
+        std::cout << "Error! Division by zero\n";
     }
     else
     {
-        std::cout << "Error! Division by zero\n";
+        std::cout << "Unknown error\n";
     }
 
     // возведение в степень:
