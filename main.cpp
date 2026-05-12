@@ -19,13 +19,13 @@ int multiplication(int a, int b)
 }
 
 // функция деления:
-int division(int a, int b, int& c)
+int division(int a, int b, int* c)
 {
     if (b == 0)
     {
         return -1;
     }
-    c = a / b;
+    *c = a / b;
     return 0;
 }
 
@@ -62,12 +62,12 @@ int main()
     c = subtraction(a, b);
     printResult(a, b, c, '-');
 
-    //умножение:
+    // умножение:
     c = multiplication(a, b);
     printResult(a, b, c, '*');
 
     // деление:
-    status = division(a, b, c);
+    status = division(a, b, &c);
     if (status == 0)
     {
         printResult(a, b, c, '/');
