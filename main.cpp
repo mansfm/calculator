@@ -19,13 +19,13 @@ int multiplication(int a, int b)
 }
 
 // функция деления:
-int division(int a, int b, int* c)
+int division(int a, int b, int& c)
 {
     if (b == 0)
     {
         return -1;
     }
-    *c = a / b;
+    c = a / b;
     return 0;
 }
 
@@ -40,48 +40,80 @@ int power(int a, int b)
     return c;
 }
 
-// вывод в консоль:
-void printResult(int a, int b, int c, char operation)
+// структура:
+struct Task
 {
-    std::cout << a << ' ' << operation << ' ' << b << " = " << c << '\n';
+    int value1;
+    char operation;
+    int value2;
+    int status;
+    int result;
+};
+
+// парсинг аргументов командной строки:
+void parse(int argc, char** argv, Task& task)
+{
+    task.value1 = std::atoi(argv[1]);
+    task.operation = *(argv[2]);
+    task.value2 = std::atoi(argv[3]);
 }
 
-
-int main()
+// вычисления:
+void calculate(Task& task)
 {
-    int a = 2;
-    int b = 2;
-    int c = 0;
-    int status = 0;
-
-    // сложение:
-    c = addition(a, b);
-    printResult(a, b, c, '+');
-
-    // вычитание:
-    c = subtraction(a, b);
-    printResult(a, b, c, '-');
-
-    // умножение:
-    c = multiplication(a, b);
-    printResult(a, b, c, '*');
-
-    // деление:
-    status = division(a, b, &c);
-    if (status == 0)
+    task.status = 0;
+    switch(task.operation)
     {
-        printResult(a, b, c, '/');
+        case '+':
+	    task.result = addition(task.value1, task.value2);
+            break;
+        case '-':
+            task.result = subtraction(task.value1, task.value2);
+            break;
+        case '*':
+            task.result = multiplication(task.value1, task.value2);
+            break;
+        case '/':
+            task.status = division(task.value1, task.value2, task.result);
+            break;
+        case '^':
+            task.result = power(task.value1, task.value2);
+            break;
+        default:
+            task.status = 1;
     }
-    else if (status == -1)
+}
+
+// вывод в консоль:
+void output(Task task)
+{
+    if (task.status == 0)
     {
-        std::cout << "Error! Division by zero\n";
+        std::cout << task.value1 << ' ' << task.operation << ' ' << task.value2 << " = " << task.result << '\n';
+    }
+    else if (task.status == -1)
+    {
+        std::cout << "Error! Division by zero!\n";
+    }
+    else if (task.status == 1)
+    {
+        std::cout << "Error! Unknown operation!\n";
     }
     else
     {
         std::cout << "Unknown error\n";
     }
+}
 
-    // возведение в степень:
-    c = power(a, b);
-    printResult(a, b, c, '^');
+void run(int argc, char** argv)
+{
+    Task task;
+    parse(argc, argv, task);
+    calculate(task);
+    output(task);
+}
+
+int main(int argc, char** argv)
+{
+    run(argc, argv);
 }
