@@ -1,4 +1,5 @@
 #include "app.h"
+
 #include "libmath.h"
 
 #include <iostream>
@@ -28,7 +29,7 @@ void parse(int argc, char** argv, Task& task)
 void calculate(Task& task)
 {
     task.status = 0;
-    switch(task.operation)
+    switch (task.operation)
     {
         case '+':
             task.result = libmath::addition(task.value1, task.value2);
@@ -40,7 +41,8 @@ void calculate(Task& task)
             task.result = libmath::multiplication(task.value1, task.value2);
             break;
         case '/':
-            task.status = libmath::division(task.value1, task.value2, task.result);
+            task.status =
+                libmath::division(task.value1, task.value2, task.result);
             break;
         case '^':
             task.result = libmath::power(task.value1, task.value2);
@@ -55,7 +57,8 @@ void output(Task task)
 {
     if (task.status == 0)
     {
-        std::cout << task.value1 << ' ' << task.operation << ' ' << task.value2 << " = " << task.result << '\n';
+        std::cout << task.value1 << ' ' << task.operation << ' ' << task.value2
+                  << " = " << task.result << '\n';
     }
     else if (task.status == -1)
     {
@@ -71,8 +74,7 @@ void output(Task task)
     }
 }
 
-}
-
+} // namespace
 
 namespace app
 {
@@ -85,4 +87,4 @@ void run(int argc, char** argv)
     output(task);
 }
 
-}
+} // namespace app
