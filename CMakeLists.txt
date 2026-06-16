@@ -47,3 +47,12 @@ if(ENABLE_CLANG_FORMAT)
 
     add_dependencies(calculator clang-format-target-calculator)
 endif()
+
+option(ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
+if(ENABLE_CLANG_TIDY)
+    find_program(CLANG_TIDY_PATH NAMES clang-tidy-19 clang-tidy REQUIRED)
+    message(STATUS "Found clang-tidy: ${CLANG_TIDY_PATH}")
+
+    set(CLANG_TIDY_COMMAND ${CLANG_TIDY_PATH} "-config-file=${CMAKE_SOURCE_DIR}/.clang-tidy")
+    set_target_properties(calculator PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+endif()
